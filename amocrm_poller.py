@@ -10,7 +10,7 @@ SUBDOMAIN       = os.environ.get("SUBDOMAIN", "yourcompany")
 LONG_TERM_TOKEN = os.environ.get("LONG_TERM_TOKEN", "ВАШ_ДОЛГОСРОЧНЫЙ_ТОКЕН")
 
 FIXED_USER_ID       = 11206022   # ID ответственного сотрудника
-TASK_TEXT           = "Новая заявка! Свяжитесь с клиентом в течение 1 часа."
+TASK_TEXT           = "Новая заявка! Связаться."
 TASK_DEADLINE_HOURS = 2          # через сколько часов дедлайн задачи
 # ============================================================
 
