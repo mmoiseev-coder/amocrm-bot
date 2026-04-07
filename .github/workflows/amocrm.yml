@@ -1,0 +1,42 @@
+name: AmoCRM Polling
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # каждый час
+  workflow_dispatch:       # ручной запуск через GitHub UI
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Установить зависимости
+        run: pip install requests
+
+      - name: Восстановить состояние (время последней проверки)
+        uses: actions/cache@v4
+        with:
+          path: last_checked.json
+          key: amocrm-state-${{ github.run_id }}
+          restore-keys: |
+            amocrm-state-
+
+      - name: Запустить скрипт
+        env:
+          SUBDOMAIN: ${{ secrets.AMOCRM_SUBDOMAIN }}
+          LONG_TERM_TOKEN: ${{ secrets.AMOCRM_LONG_TERM_TOKEN }}
+        run: python amocrm_poller.py
+
+      - name: Сохранить состояние
+        uses: actions/cache@v4
+        with:
+          path: last_checked.json
+          key: amocrm-state-${{ github.run_id }}
