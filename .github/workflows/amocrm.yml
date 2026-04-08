@@ -2,8 +2,8 @@ name: AmoCRM Polling
 
 on:
   schedule:
-    - cron: '0 * * * *'   # каждый час
-  workflow_dispatch:       # ручной запуск через GitHub UI
+    - cron: '*/30 * * * *'   # каждые 30 минут
+  workflow_dispatch:          # ручной запуск через GitHub UI
 
 jobs:
   poll:
